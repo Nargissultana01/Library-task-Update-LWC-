@@ -1,0 +1,68 @@
+<template>
+    <lightning-card class="" title="List Of Customer">
+        
+            <div class="tableDiv">
+                <div class={tableStyle}>
+                    <table aria-describedby="customer-list"  class="slds-table  slds-table_fixed-layout slds-table_resizable-cols">
+
+                        <!--Header of the table-->
+                        <thead>
+                            <tr class="slds-line-height_reset" style="height: 50px;">
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Name">Customer Name</div>
+                                </th>
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Isued book"> Total Issued Book</div>
+                                </th>
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Overdue">Overdue Book</div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <!--Body of the table-->
+                        <tbody>
+                            <template for:each={customerList} for:item="item" for:index="index">
+
+                                <tr key={item.Id} class="slds-hint-parent slds-table_bordered">
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                        {item.Name}
+                                              
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>               
+                                            {item.Issue__r.length}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+
+                                               
+                                                
+                                                    <template for:each={item.Issue__r} for:item="data" for:index="index">
+
+                                                         <template if:true={data.overdue}>
+                                                        <tr key={data.Book__r.Id}  class="slds-hint-parent">
+                                                            <td class="slds-size_1-of-6">
+                                                                <div>
+                                                                  {data.Book__r.Name}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </template>
+                                                     </template>
+
+                                                   
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+            </lightning-card>
+</template>

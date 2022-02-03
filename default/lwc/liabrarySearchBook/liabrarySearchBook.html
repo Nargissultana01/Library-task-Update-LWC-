@@ -1,0 +1,167 @@
+<template>
+    <lightning-card class="slds-var-p-around_medium">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+                <p class="slds-var-p-horizontal_small">
+                    <lightning-input  type="search" class="slds-var-p-horizontal_small" label="Search" onchange={handleChange} value={getrecord}></lightning-input>
+                </p>
+                </br>
+                <div class="page-info">
+                    Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+                    
+                </div>
+            </div>
+           <div class="slds-col slds-size_1-of-3">
+                <lightning-combobox
+                    name="pazeSize"
+                    label="Number Of Record"
+                    value={value}
+                    options={options}
+                    onchange={comboChange} 
+                    style="color:grey;width:190px;">
+                </lightning-combobox>
+           </div>
+
+            <div class="slds-col slds-size_1-of-3">
+            </br>
+        
+                <lightning-button-group>
+                    <lightning-button  
+                        onclick={findButtonLabel}  
+                        label="Name"
+                        variant={brandName}>
+                    </lightning-button>
+                    <lightning-button 
+                        label="ISBN"  
+                        onclick={findButtonLabel}
+                        variant={brandISBN}>
+                    </lightning-button>
+                    <lightning-button 
+                        label="Author"  
+                        onclick={findButtonLabel}
+                        variant={brandAuthor}>
+                    </lightning-button>
+                </lightning-button-group>
+    
+            </div>
+        </div>
+
+       
+            </br>
+            </br>
+            </br>
+         
+        <lightning-button-icon slot="actions" icon-name="utility:refresh" alternative-text="Refresh" class="slds-p-around_xx-small" onclick={refreshTable}></lightning-button-icon>
+      
+        <template if:true={renderTable}>
+            <div class="tableDiv">
+                <div class={tableStyle}>
+                    <table aria-describedby="conatact-list"  class="slds-table slds-table_bordered slds-table_fixed-layout ">
+
+                        <!--Header of the table-->
+                        <thead>
+                            <tr class="slds-line-height_reset" style="height: 50px;">
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Name">Book Name</div>
+                                </th>
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="ISBN">ISBN Number</div>
+                                </th>
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Author">Author</div>
+                                </th>
+                                
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Number Of Available">Number Of Available</div>
+                                </th>
+                                <th class="slds-size_1-of-6" scope="col">
+                                    <div class="slds-truncate " title="Number Of Issued">Number Of Issued</div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <!--Body of the table-->
+                        <tbody>
+                            <template for:each={BookList} for:item="item" for:index="index">
+
+                                <tr key={item.Id} class="slds-hint-parent">
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                            <p class="slds-truncate">  <lightning-button  slot="actions" onclick={showReaderComponent}  label={item.Name} variant="base"  data-recid={item.Id} accesskey={index}></lightning-button></p>
+                                            <!-- <a  data-record-id={item.Id} onclick={showReaderComponent}>{item.Name}</a> -->
+                                            
+                                            
+                                                <!-- <lightning-button-icon icon-name="utility:search" onclick={showSearch}></lightning-button-icon>
+                                                <c-new-lwc if:true={showSearchComponent}></c-new-lwc> -->
+                                              
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>               
+                                            {item.ISBN_Number__c}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                                {item.Author__c}    
+                                        </div>
+                                    </td>
+                                   
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                            {item.Number_of_Free_Books__c} 
+                                           
+                                           </div>
+                                    </td>
+                                    <td class="slds-size_1-of-6">
+                                        <div>
+                                                {item.Number_Of_Issued_Book__c}    
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+           
+            <div class="page-info">
+                <!-- Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records. -->
+                Page {page} of {totalPage}.
+                
+            </div>
+                
+              
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler} disabled={disablePrev} ></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow"></lightning-layout-item>
+                    <lightning-layout-item>
+                        <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler} disabled={disableNext}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+        </lightning-card>
+  
+
+        <!-- <c-liabrary-book-reader if:true={readerVisible} onprogressvaluechange={hanldeProgressValueChange}
+        bookrecord={bookrecordId}></c-liabrary-book-reader> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</template>

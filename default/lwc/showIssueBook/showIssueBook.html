@@ -1,0 +1,106 @@
+<template>
+    <lightning-card title="Issue Book List">
+        
+    <table aria-describedby="book-issue-list"  class="slds-table slds-table_bordered slds-table_fixed-layout ">
+
+        <!--Header of the table-->
+        <thead>
+           
+            <tr class="slds-line-height_reset" style="height: 50px;">
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="Book Name">Book</div>
+                </th>
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="Reader Name">Reader Name</div>
+                </th>
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="From">Issued Date</div>
+                </th>
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="To">Return Date</div>
+                </th>
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="Tentative Date">Tentative Date</div>
+                </th>
+                
+                <th class="slds-size_1-of-6" scope="col">
+                    <div class="slds-truncate " title="Action">Action</div>
+                </th>
+            </tr>
+        </thead>
+
+        <!--Body of the table-->
+        <tbody>
+            <template for:each={issuebook} for:item="item" for:index="index">
+
+                <tr key={item.Id} class={item.rowSelected}>
+                    <td class="slds-size_1-of-6">
+                        <div>               
+                            <!-- {item.Book__r.Name} -->
+                            <p class="slds-truncate">  <lightning-button    label={item.Book__r.Name} variant="base"  title={item.Book_Copy__r.Name}></lightning-button></p>
+                                         
+                            <div style="visibility: hidden">{item.Book__r.Id} </div> 
+                                            
+                        </div>
+                    </td>
+                    <td class="slds-size_1-of-6">
+                        <div>
+                           {item.Reader_Name__r.Name}   
+                           <div style="visibility: hidden">{item.Book_Copy__r.Id} </div> 
+                                                                  
+                        </div>
+                    </td>
+                    <td class="slds-size_1-of-6">
+                        <div>               
+                            {item.From_Date__c}
+                        </div>
+                    </td>
+                    <td class="slds-size_1-of-6">
+                        <div>
+                            {item.To_Date__c}    
+                        </div>
+                    </td>
+                    <td class="slds-size_1-of-6">
+                        <div>               
+                            {item.Tentative_Date_of_Return__c}
+                        </div>
+                    </td>
+                    
+                    <td class="slds-size_1-of-6">
+                        <div>
+                            <template if:true={item.bookIsBack}>
+                            <lightning-button  slot="actions" onclick={backBook} access-key={index}  data-recid={item.Id} label="Return"></lightning-button>
+                              </template>
+                            
+                        </div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+
+
+    <div class="page-info">
+        Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+        Page {page} of {totalPage}.
+        
+      </div>
+        
+      
+        <lightning-layout>
+            <lightning-layout-item>
+                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler} disabled={disablePrev} ></lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="grow"></lightning-layout-item>
+            <lightning-layout-item>
+                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler} disabled={disableNext}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+    
+
+
+</lightning-card>
+
+
+</template>

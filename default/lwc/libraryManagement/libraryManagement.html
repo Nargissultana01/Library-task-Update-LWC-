@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Library Management">
+
+        <lightning-tabset active-tab-value={activeTab}>
+            <lightning-tab label="Search Book" onactive={handleActive} value="1"> 
+
+              
+            </lightning-tab>
+            <lightning-tab label="Add Book" onactive={handleActive} value="2">
+
+            </lightning-tab>
+            <lightning-tab label="Issue Book" onactive={handleActive} value="3" >
+
+            </lightning-tab>
+            <lightning-tab label="Book Info" onactive={handleActive} value="4">
+
+            </lightning-tab>
+            <lightning-tab label="List Of Issue Book" onactive={handleActive} value="5">
+
+            </lightning-tab>
+            <lightning-tab label="Customer" onactive={handleActive} value="6">
+                
+            </lightning-tab>
+        </lightning-tabset>
+
+    
+        <template if:true={searchbook}>
+            <c-liabrary-search-book onprogressvaluechange={hanldeProgressValueChange}></c-liabrary-search-book>
+        </template>
+    <template if:true={addbook}>
+        <c-liabrary></c-liabrary>
+    </template>
+    <template if:true={issuebook}>
+        <c-liabraryissue-book bookid={bookrecord} onbookidblack={idblank}></c-liabraryissue-book>
+    </template>
+
+    <template if:true={bookreader}>
+        <c-liabrary-book-reader  bookrecord={bookrecordId} onprogressvalue={handelchangevalue}></c-liabrary-book-reader>
+
+    </template>
+
+    <template if:true={listofissuebook}>
+        <c-show-issue-book  bookrecord={bookrecordId}   onprogressvalue={issueBook}></c-show-issue-book >
+
+    </template>
+
+    <template if:true={customerissue}>
+        <c-customer-issuedbook></c-customer-issuedbook>
+    </template>
+</lightning-card>
+    
+</template>

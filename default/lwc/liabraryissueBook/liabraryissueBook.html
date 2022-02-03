@@ -1,0 +1,43 @@
+<template>
+   
+    <lightning-card>
+        
+        <!-- Issued Book :{issuebookrecord} -->
+
+
+    
+       
+            <div class="slds-var-p-bottom_large slds-var-p-left_large" style="width:500px">
+                <lightning-record-edit-form object-api-name="Issue__c">
+                    <lightning-messages></lightning-messages>
+                    <lightning-input-field field-name="Book__c" onchange={handelChange} value={bookName} > </lightning-input-field>
+                    <lightning-input-field field-name="Reader_Name__c" onchange={handelChange} value={readerName} disabled={disableReader}> </lightning-input-field>
+                    <lightning-input-field field-name="Tentative_Date_of_Return__c" onchange={handelChange} value={tentativeDate} disabled={disableReader}> </lightning-input-field>
+                    <div>
+                        <template if:true={showcharge}>
+                        Pay Charge:{paycharge}
+                        </template>
+                        <template if:true={validDate}>
+                            Please select Valid date!!!
+                            </template>
+                        
+                    </div>
+                    
+                   
+                  
+                    
+                </lightning-record-edit-form>
+                <div class="slds-align_absolute-center" style="height:5rem">
+                    <lightning-button
+                        name="submit"
+                        onclick={saveIssue}
+                        label="Issue"
+                        variant="brand"
+                        align="center"
+                        disabled={buttonDisable}>
+                    </lightning-button>
+                    </div>
+            </div>
+</lightning-card>
+
+</template>

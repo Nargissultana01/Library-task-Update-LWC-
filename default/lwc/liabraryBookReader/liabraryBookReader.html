@@ -1,0 +1,149 @@
+<template>
+    <lightning-card class="" title={bookName}>
+        <div style="text-align: right;">
+        <lightning-button-group>
+            <lightning-button   onclick={issueBook}  label="Issue Book"></lightning-button>
+            <lightning-button   onclick={addBook}  label="Add Book"></lightning-button>
+        </lightning-button-group>
+        </div>
+ 
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+                Number of Availabe book :{availablebook}
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                Number Of Issued book :{issuebook}
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                ISBN :{isbn}
+            </div>
+        </div>
+    </br>
+    </br>
+       
+        <div class="tableDiv">
+            <div class={tableStyle}>
+                <table aria-describedby="conatact-list"  class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols">
+
+                    <!--Header of the table-->
+                    <thead>
+                       
+                        <tr class="slds-line-height_reset" style="height: 50px;">
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="First Name">Reader</div>
+                            </th>
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="First Name">From</div>
+                            </th>
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="Last Name">To</div>
+                            </th>
+                            
+                            <th class="slds-size_1-of-6" scope="col">
+                                <div class="slds-truncate " title="Last Name">Action</div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <!--Body of the table-->
+                    <tbody>
+                        <template for:each={readerName} for:item="item" for:index="index">
+
+                            <tr key={item.Id} class="slds-hint-parent">
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                       {item.Reader_Name__r.Name}   
+                                       <div style="visibility: hidden">{item.Book_Copy__r.Id} </div> 
+                                                                              
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>               
+                                        {item.From_Date__c}
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        {item.To_Date__c}    
+                                    </div>
+                                </td>
+                                
+                                <td class="slds-size_1-of-6">
+                                    <div>
+                                        <template if:true={item.bookIsBack}>
+                                            <lightning-button-group>
+                                                <lightning-button  onclick={backBook} access-key={index}  data-recid={item.Id} label="Return"></lightning-button>
+                                                <lightning-button   onclick={LostBook} access-key={index}  data-recid={item.Id}  label="Lost"></lightning-button>
+                                                <lightning-button   onclick={DamagedBook}  access-key={index}  data-recid={item.Id} label="Damaged"></lightning-button>
+                                            </lightning-button-group>
+                                    </template>
+                                    <template if:false={item.bookIsBack}>
+                                      Returned !!
+
+                                    </template>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </lightning-card>
+
+
+    <template if:true={addNumberOfBook}>
+
+
+
+       
+
+
+
+
+
+
+
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closePopUp}>
+                <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            </header> -->
+          <div class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closePopUp}>
+                <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Copies for {bookName}</h2>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div class="slds-form_horizontal slds-form slds-grid slds-wrap">
+                <lightning-input label="Number Of Books" value={numberofbooks} type="number" maxlength=2 onchange={handlechange}></lightning-input>
+            </div> </div>
+          <div class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closePopUp} title="Cancel">Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleSave} title="OK">Add</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+
+
+
+
+
+    <!-- <c-library-management if:true ={readerVisible}  activetab={activeTab} issuebookrecord={bookrecordId} ></c-library-management> -->
+    
+</template>
